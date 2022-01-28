@@ -47,7 +47,7 @@ function App() {
   
     if (!connector.connected) {
       // create new session
-      connectRef.current.createSession();
+      connector.createSession();
     }
 
     connector.on("connect", (error, payload) => {
@@ -73,9 +73,9 @@ function App() {
 
     console.log({uri})
     
-    const redirectUrl = '/coinbase';
+    const redirectUrl = 'coinbase://';
 
-    console.log(`${formatProviderUrl(mobile)}/wc?uri=${encodeURIComponent(uri)}${redirectUrl}`)
+    console.log(`${formatProviderUrl(mobile)}/wc?uri=${encodeURIComponent(uri)}&redirectUrl=${redirectUrl}`)
 
     if (window.ReactNativeWebView) {
       window.ReactNativeWebView.postMessage(`${formatProviderUrl(mobile)}/wc?uri=${encodeURIComponent(uri)}${redirectUrl}`);
@@ -98,7 +98,7 @@ function App() {
         <Text style={styles.title}>Connect Self hosted wallet</Text>
       </View>
       </ScrollView>
-      <Button onPress={handleConnect} title="Connect" />
+      <Button onPress={handleConnect} title="Connect" color={"red"}/>
       {modalVisible && renderModal(data)}
     </View>
   );
